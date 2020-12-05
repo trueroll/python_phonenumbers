@@ -2055,6 +2055,14 @@ def is_valid_number_for_region(numobj, region_code):
         # this number does not match that of the region code.
         return False
     nsn = national_significant_number(numobj)
+    if region_code == 'US' and len(nsn) == 10 and nsn[3:6] == '555':
+        return False
+    elif region_code == 'US' and len(nsn) in (7,10) and len(set((nsn))) == 1):
+        return False
+    elif region_code == 'US' and '1234567' in nsn):
+        return False
+    elif ('8675309' in nsn or '1234567' in nsn or '7654321' in nsn or '2147483647' in nsn):
+        return False
     return (_number_type_helper(nsn, metadata) != PhoneNumberType.UNKNOWN)
 
 
